@@ -59,6 +59,7 @@ import org.apache.maven.project.MavenProject;
 
 import org.eclipse.m2e.core.MavenPlugin;
 import org.eclipse.m2e.core.internal.M2EUtils;
+import org.eclipse.m2e.core.internal.project.ResolverConfigurationIO;
 import org.eclipse.m2e.core.project.IMavenProjectFacade;
 import org.eclipse.m2e.core.project.IProjectConfigurationManager;
 import org.eclipse.m2e.core.project.configurator.AbstractProjectConfigurator;
@@ -567,7 +568,7 @@ public abstract class AbstractJavaProjectConfigurator extends AbstractProjectCon
           // skip adding resource folders that are included by other resource folders
           log.info("Skipping resource folder " + path + " since it's contained by another resource folder");
         } else {
-          addResourceFolder(classpath, path, outputPath, addTestFlag, resource);
+          addResourceFolder(classpath, path, outputPath, addTestFlag, resource, project);
         }
         // Set folder encoding (null = platform default)
         if(r.exists()) {
@@ -580,11 +581,18 @@ public abstract class AbstractJavaProjectConfigurator extends AbstractProjectCon
   }
 
   private void addResourceFolder(IClasspathDescriptor classpath, IPath resourceFolder, IPath outputPath,
-      boolean addTestFlag, Resource resource) {
+      boolean addTestFlag, Resource resource, IProject project) {
     log.info("Adding resource folder " + resourceFolder);
-    IClasspathEntryDescriptor descriptor = classpath.addSourceEntry(resourceFolder, outputPath, 
-      toIPathList(resource.getIncludes(), null),
-      toIPathList(resource.getExcludes(), null), false /*optional*/);
+    final IClasspathEntryDescriptor descriptor;
+    if (ResolverConfigurationIO.isMavenBuilderOff(project)) {
+      descriptor = classpath.addSourceEntry(resourceFolder, outputPath, 
+        toIPathList(resource.getIncludes(), null),
+        toIPathList(resource.getExcludes(), null), false /*optional*/);
+    } else {
+      descriptor = classpath.addSourceEntry(resourceFolder, outputPath, DEFAULT_INCLUSIONS,
+      new IPath[] {IPath.fromOSString("**")}, false /*optional*/);
+    }
+
     descriptor.setClasspathAttribute(IClasspathManager.TEST_ATTRIBUTE, addTestFlag ? "true" : null);
     descriptor.setClasspathAttribute(IClasspathAttribute.OPTIONAL, "true"); //$NON-NLS-1$
   }
