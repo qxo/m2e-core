@@ -98,6 +98,10 @@ public class MavenPreferencePage extends FieldEditorPreferencePage implements IW
         Messages.MavenPreferencePage_autoUpdateProjectConfiguration, //
         getFieldEditorParent()));
 
+    addField(new BooleanFieldEditor(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF, //
+        Messages.MavenPreferencePage_mavenBuilderOff, //
+        getFieldEditorParent()));
+
     addField(new BooleanFieldEditor(MavenPreferenceConstants.P_HIDE_FOLDERS_OF_NESTED_PROJECTS, //
         Messages.MavenPreferencePage_hide, getFieldEditorParent()));
 

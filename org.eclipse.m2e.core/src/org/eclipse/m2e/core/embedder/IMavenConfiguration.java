@@ -119,6 +119,14 @@ public interface IMavenConfiguration {
    */
   boolean isAutomaticallyUpdateConfiguration();
 
+    /**
+   * Returns <code>true</code> if project disable the maven builder.
+   *
+   * @return <code>true</code> if project disable the maven builder.
+   * @since 1.6
+   */
+  boolean isMavenBuilderOff();
+
   /**
    * Returns {@link IMarker} severity of "Overriding Managed version" problem.
    *

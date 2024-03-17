@@ -62,6 +62,10 @@ public class MavenUpdateConfigurationChangeListener implements IResourceChangeLi
     return !MavenPlugin.getMavenConfiguration().isAutomaticallyUpdateConfiguration();
   }
 
+  public static boolean isMavenBuilderOff() {
+    return MavenPlugin.getMavenConfiguration().isMavenBuilderOff();
+  }
+
   protected void updateProjectConfiguration(List<IProject> outOfDateProjects) {
     if(outOfDateProjects != null && !outOfDateProjects.isEmpty()) {
       LOG.debug("Automatic update of {}", outOfDateProjects);

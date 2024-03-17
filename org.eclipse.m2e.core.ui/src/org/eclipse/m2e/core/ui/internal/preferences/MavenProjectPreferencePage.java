@@ -56,6 +56,9 @@ public class MavenProjectPreferencePage extends PropertyPage {
 
   private Button autoUpdateConfigurationButton;
 
+  private Button mavenBuilderOffButton;
+
+
 //  private Button includeModulesButton;
 
   private Text selectedProfilesText;
@@ -90,6 +93,14 @@ public class MavenProjectPreferencePage extends PropertyPage {
       autoUpdateConfigurationButton.setText(text);
     }
 
+    mavenBuilderOffButton = new Button(composite, SWT.CHECK);
+    mavenBuilderOffButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+    mavenBuilderOffButton.setText(Messages.MavenPreferencePage_mavenBuilderOff);
+    if(MavenUpdateConfigurationChangeListener.isMavenBuilderOff()) {
+      mavenBuilderOffButton.setEnabled(false);
+      String text = mavenBuilderOffButton.getText() + " (disabled in workspace preferences)";
+      mavenBuilderOffButton.setText(text);
+    }
 //    includeModulesButton = new Button(composite, SWT.CHECK);
 //    GridData gd = new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1);
 //    gd.verticalIndent = 15;

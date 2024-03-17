@@ -374,6 +374,15 @@ public class MavenConfigurationImpl implements IMavenConfiguration, IPreferenceC
   }
 
   @Override
+  public boolean isMavenBuilderOff() {
+    return getBooleanPreference(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF);
+  }
+
+  public void setMavenBuilderOff(boolean value) {
+    preferencesLookup[0].putBoolean(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF, value);
+  }
+
+  @Override
   public void setDefaultMojoExecutionAction(PluginExecutionAction mojoAction) {
     preferencesLookup[0].put(MavenPreferenceConstants.P_DEFAULT_MOJO_EXECUTION_ACTION, mojoAction.name());
   }

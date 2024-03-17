@@ -142,6 +142,20 @@ public class ResolverConfigurationIO {
     }
   }
 
+  public static boolean isMavenBuilderOff(IProject project) {
+    IEclipsePreferences preferences = getMavenProjectPreferences(project);
+    boolean defaultValue = false;
+    return preferences != null ? preferences.getBoolean(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF, defaultValue) : defaultValue;
+  }
+
+  public static void setMavenBuilderOff(IProject project, boolean off) {
+    IEclipsePreferences preferences = getMavenProjectPreferences(project);
+    if(preferences != null) {
+      preferences.putBoolean(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF, off);
+      savePreferences(preferences);
+    }
+  }
+
   public static boolean isResolveWorkspaceProjects(IProject project) {
     IEclipsePreferences preferences = getMavenProjectPreferences(project);
     if(preferences == null) {

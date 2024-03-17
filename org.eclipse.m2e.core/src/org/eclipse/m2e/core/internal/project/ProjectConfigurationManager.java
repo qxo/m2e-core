@@ -594,10 +594,11 @@ public class ProjectConfigurationManager
     ICommand mavenBuilder = null;
     List<ICommand> newSpec = new ArrayList<>();
     int i = 0;
+    final boolean maveBuilderOn = !ResolverConfigurationIO.isMavenBuilderOff(project);
     for(ICommand command : description.getBuildSpec()) {
       if(isMavenBuilderCommand(command)) {
         mavenBuilder = command;
-        if(i == description.getBuildSpec().length - 1) {
+        if(maveBuilderOn && i == description.getBuildSpec().length - 1) {
           // This is the maven builder command and it is the last one in the list - there is nothing to change
           return false;
         }
@@ -606,11 +607,13 @@ public class ProjectConfigurationManager
       }
       i++ ;
     }
-    if(mavenBuilder == null) {
+    if(mavenBuilder == null && maveBuilderOn) {
       mavenBuilder = description.newCommand();
       mavenBuilder.setBuilderName(IMavenConstants.BUILDER_ID);
     }
-    newSpec.add(mavenBuilder);
+    if(maveBuilderOn) {
+       newSpec.add(mavenBuilder);
+    }
     description.setBuildSpec(newSpec.toArray(ICommand[]::new));
 
     if(setProjectDescription) {
@@ -650,7 +653,10 @@ public class ProjectConfigurationManager
   }
 
   private boolean isMavenBuilderCommand(ICommand command) {
-    return IMavenConstants.BUILDER_ID.equals(command.getBuilderName());
+    final String name = command.getBuilderName();
+    return IMavenConstants.BUILDER_ID.equals(name) 
+      || "org.eclipse.ui.externaltools.ExternalToolBuilder".equals(name)
+        && command.getArguments().toString().contains("LaunchConfigHandle=<project>/.externalToolBuilders/org.eclipse.m2e.core.maven2Builder");
   }
 
   // project creation

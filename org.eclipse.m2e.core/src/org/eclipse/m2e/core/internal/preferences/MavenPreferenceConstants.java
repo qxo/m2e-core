@@ -159,6 +159,11 @@ public interface MavenPreferenceConstants {
    **/
   String P_AUTO_UPDATE_CONFIGURATION = PREFIX + "autoUpdateProjects"; //$NON-NLS-1$
 
+  /**
+   * boolean
+   */
+  String P_MAVEN_BUILDER_OFF = PREFIX + "maveBuilderOff"; //$NON-NLS-1$
+
   String P_DEFAULT_MOJO_EXECUTION_ACTION = PREFIX + "unkownMojoExecutionAction"; //$NON-NLS-1$
 
   /** boolean */

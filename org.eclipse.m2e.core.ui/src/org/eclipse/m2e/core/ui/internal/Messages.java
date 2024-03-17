@@ -413,6 +413,8 @@ public class Messages extends NLS {
 
   public static String MavenPreferencePage_autoUpdateProjectConfiguration;
 
+  public static String MavenPreferencePage_mavenBuilderOff;
+
   public static String MavenPreferencePage_updateProjectRequired_title;
 
   public static String MavenProjectPreferencePage_btnResolve;

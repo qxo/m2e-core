@@ -67,6 +67,8 @@ public class MavenPreferenceInitializer extends AbstractPreferenceInitializer {
 
     store.putBoolean(MavenPreferenceConstants.P_AUTO_UPDATE_CONFIGURATION, P_AUTO_UPDATE_CONFIGURATION_DEFAULT);
 
+    store.putBoolean(MavenPreferenceConstants.P_MAVEN_BUILDER_OFF, false);
+
     store.putBoolean(MavenPreferenceConstants.P_ENABLE_SNAPSHOT_ARCHETYPES, false);
 
     store.putBoolean(MavenPreferenceConstants.P_RESOLVE_MISSING_PROJECTS, true);
